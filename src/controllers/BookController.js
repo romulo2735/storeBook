@@ -1,4 +1,5 @@
 import Book from "../models/Book.js";
+import {Author} from "../models/Author.js";
 
 export default class BookController {
     static async getBooks(req, res) {
@@ -39,7 +40,17 @@ export default class BookController {
 
     static async createBook(req, res) {
         try {
-            const book = await Book.create(req.body);
+            const author = await Author.findById(req.body.author);
+
+            const data = {
+                ...res.body,
+                author: {
+                    ...author._doc
+                }
+            };
+
+            const book = await Book.create(data);
+
             res.status(201).json({message: "Book created!", book});
         } catch (error) {
             res.status(500).json({message: error.message});

@@ -9,5 +9,4 @@ routerBook.post("/books", BookController.createBook);
 routerBook.put("/books/:id", BookController.updateBook);
 routerBook.delete("/books/:id", BookController.deleteBook);
 
-
 export default routerBook;
