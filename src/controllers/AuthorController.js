@@ -1,4 +1,4 @@
-import {Author} from "../models/Author";
+import {Author} from "../models/Author.js";
 
 export default class AuthorController {
     static async getAuthors(req, res) {
