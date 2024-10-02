@@ -1,4 +1,4 @@
-import Author from "../models/Author";
+import {Author} from "../models/Author";
 
 export default class AuthorController {
     static async getAuthors(req, res) {
@@ -10,9 +10,36 @@ export default class AuthorController {
         }
     }
 
-    static async getById(req, res) {
+    static async getAuthorById(req, res) {
         try {
             const author = await Author.findById(req.params.id);
+            res.json(author);
+        } catch (error) {
+            res.status(500).json({message: error.message})
+        }
+    }
+
+    static async createAuthor(req, res) {
+        try {
+            const author = await Author.create(req.body);
+            res.status(201).json({message: "Author: ", author});
+        } catch (error) {
+            res.status(500).json({message: error.message})
+        }
+    }
+
+    static async updateAuthor(req, res) {
+        try {
+            const author = await Author.findByIdAndUpdate(req.params.id, req.body);
+            res.json(author);
+        } catch (error) {
+            res.status(500).json({message: error.message})
+        }
+    }
+
+    static async deleteAuthor(req, res) {
+        try {
+            const author = await Author.findByIdAndDelete(req.params.id);
             res.json(author);
         } catch (error) {
             res.status(500).json({message: error.message})
