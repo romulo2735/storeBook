@@ -1,6 +1,5 @@
 import express from "express";
 import conn from "./config/connect.js";
-// import book from "./models/Book.js";
 
 import routes from "./routes/index.js";
 

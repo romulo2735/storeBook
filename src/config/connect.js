@@ -1,9 +1,8 @@
 import mongoose from "mongoose";
 
 async function conn() {
-    mongoose.connect(process.env.DB_MONGO_CONNECTION);
+    await mongoose.connect(process.env.DB_MONGO_CONNECTION);
     return mongoose.connection;
 }
 
 export default conn;
-
