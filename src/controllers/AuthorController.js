@@ -40,6 +40,10 @@ export default class AuthorController {
     static async deleteAuthor(req, res) {
         try {
             const author = await Author.findByIdAndDelete(req.params.id);
+
+            if (!author) {
+                return res.status(404).json({message: "Author not found"});
+            }
             res.json(author);
         } catch (error) {
             res.status(500).json({message: error.message})
