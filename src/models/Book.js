@@ -10,13 +10,16 @@ const bookSchema = new mongoose.Schema({
         required: true
     },
     publisher: {
-        type: String
+        type: String,
+        required: true
     },
     price: {
-        type: Number
+        type: Number,
+        required: true
     },
     pages: {
-        type: Number
+        type: Number,
+        required: true
     },
     author: authorSchema
 
