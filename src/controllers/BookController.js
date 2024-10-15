@@ -14,25 +14,7 @@ export default class BookController {
     static async getBookById(req, res) {
         try {
             const books = await Book.findById(req.params.id);
-            res.json(books);
-        } catch (error) {
-            res.status(500).json({message: error.message});
-        }
-    }
-
-    static async deleteBook(req, res) {
-        try {
-            const book = await Book.findByIdAndDelete(req.params.id);
-            res.json(book);
-        } catch (error) {
-            res.status(500).json({message: error.message});
-        }
-    }
-
-    static async updateBook(req, res) {
-        try {
-            const book = await Book.findByIdAndUpdate(req.params.id, req.body);
-            res.json(book);
+            res.status(200).json(books);
         } catch (error) {
             res.status(500).json({message: error.message});
         }
@@ -43,15 +25,41 @@ export default class BookController {
             const author = await Author.findById(req.body.author);
 
             const data = {
-                ...res.body,
+                ...req.body,
                 author: {
-                    ...author._doc
+                   ...author._doc
                 }
             };
-
             const book = await Book.create(data);
 
             res.status(201).json({message: "Book created!", book});
+        } catch (error) {
+            res.status(500).json({message: error.message});
+        }
+    }
+
+    static async updateBook(req, res) {
+        try {
+            const book = await Book.findByIdAndUpdate(req.params.id, req.body);
+            res.status(200).json(book);
+        } catch (error) {
+            res.status(500).json({message: error.message});
+        }
+    }
+
+    static async deleteBook(req, res) {
+        try {
+            const book = await Book.findByIdAndDelete(req.params.id);
+            res.status(200).json(book);
+        } catch (error) {
+            res.status(500).json({message: error.message});
+        }
+    }
+
+    static async getBooksByPublisher(req, res) {
+        try {
+            const books = await Book.find({publisher: req.query.publisher});
+            res.status(200).json(books);
         } catch (error) {
             res.status(500).json({message: error.message});
         }
