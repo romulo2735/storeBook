@@ -7,7 +7,7 @@ const routes = (app) => {
         res.status(200).send("Hello World!");
     });
 
-    app.use(express.json(), routerBook, authorRoutes);
+    app.use("/api/v1", express.json(), routerBook, authorRoutes);
 };
 
 export default routes;
