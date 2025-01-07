@@ -17,10 +17,19 @@ export default class AuthorController {
 
     static async getAuthorById(req, res) {
         try {
-            const author = await Author.findById(req.params.id);
-            res.json(author);
+            const id = req.params.id;
+            const author = await Author.findById(id);
+
+            if (!author) {
+                return res.status(404).send({message: "Author not found"});
+            }
+
+            res.status(200).send(author);
         } catch (error) {
-            res.status(500).json({message: error.message})
+            res.status(500).send({
+                error: error.message,
+                message: "Internal Server Error"
+            })
         }
     }
 
